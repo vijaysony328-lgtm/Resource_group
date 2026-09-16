@@ -1,0 +1,26 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool: Default
+
+jobs:
+- job: myfirstyaml
+  displayName: my first yamal
+  steps:
+
+     - task: PowerShell@2
+       inputs:
+        targetType: 'inline'
+        script: 
+                 Write-Host "Hello World"
+
+- job: Terraforminit
+  displayName: Terraform init and plan
+
+  steps:
+    - task
