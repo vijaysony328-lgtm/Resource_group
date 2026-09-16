@@ -23,4 +23,24 @@ jobs:
   displayName: Terraform init and plan
 
   steps:
-    - task
+    
+    - task: TerraformTask@5
+      displayName: terraform init
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+
+    - task: TerraformTask@5
+      displayName: terraform validate
+      inputs:
+        provider: 'azurerm'
+        command: 'validate'
+
+    - task: TerraformTask@5
+      displayName: terraform fmt
+      inputs:
+        provider: 'azurerm'
+        command: 'fmt'
+
+
+        
