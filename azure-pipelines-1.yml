@@ -1,0 +1,23 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool: Default
+
+jobs:
+ - job: power_hello
+   displayName: power hello
+
+   steps:
+    
+    - task: PowerShell@2
+      inputs:
+        targetType: 'inline'
+        script: 
+             Write-Host "Hello World"
+
+
