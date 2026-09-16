@@ -15,16 +15,19 @@ jobs:
 
    steps:
    - task: PowerShell@2
+     displayName: terrafrom init
      inputs:
        targetType: 'inline'
        script: 'terraform init'
        
    - task: PowerShell@2
+     displayName: terrafrom fmt
      inputs:
            targetType: 'inline'
            script: 'terraform fmt'
 
    - task: PowerShell@2
+     displayName: terrafrom validate
      inputs:
         targetType: 'inline'
         script: 'terraform validate'
