@@ -32,5 +32,6 @@ stages:
             inputs:
                provider: 'azurerm'
                command: 'plan'
+               environmentServiceNameAzureRM: 'ado_connection'
 
       
