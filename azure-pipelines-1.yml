@@ -1,33 +1,39 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
 
 trigger:
 - main
 
 pool: Default
 
-jobs:
+stages:
 
- - job: terraforminit
-   displayName: Terraform Init ,Plan
+- stage: Terraform
+  displayName: Terraform Init, Fmt and Validate
 
-   steps:
-   - task: PowerShell@2
-     displayName: terrafrom init
-     inputs:
-       targetType: 'inline'
-       script: 'terraform init'
-       
-   - task: PowerShell@2
-     displayName: terrafrom fmt
-     inputs:
-           targetType: 'inline'
-           script: 'terraform fmt'
+  jobs:
 
-   - task: PowerShell@2
-     displayName: terrafrom validate
-     inputs:
+  - job: terraforminit
+    displayName: Terraform Init, Fmt and Validate
+
+    steps:
+
+    - task: PowerShell@2
+      displayName: Terraform Init
+      inputs:
         targetType: 'inline'
-        script: 'terraform validate'
+        script: |
+          terraform init
+
+    - task: PowerShell@2
+      displayName: Terraform Format
+      inputs:
+        targetType: 'inline'
+        script: |
+          terraform fmt
+
+    - task: PowerShell@2
+      displayName: Terraform Validate
+      inputs:
+        targetType: 'inline'
+        script: |
+          terraform validate
+
