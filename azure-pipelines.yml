@@ -1,46 +1,39 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
-trigger:
-- main
+trigger: none
 
 pool: Default
 
-jobs:
-- job: myfirstyaml
-  displayName: my first yamal
-  steps:
+stages:
+  - stage: terraforminstall
+    displayName: terraform install
 
-     - task: PowerShell@2
-       inputs:
-        targetType: 'inline'
-        script: 
-                 Write-Host "Hello World"
+    jobs:
+      - job: terraform
+        displayName: terraform init
 
-- job: Terraforminit
-  displayName: Terraform init and plan
+        steps:
+          - task: TerraformTask@5
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              backendServiceArm: 'ado_connection'
+              backendAzureRmStorageAccountName: 'sunnystorage12'
+              backendAzureRmContainerName: 'consunny'
+              backendAzureRmKey: 'vijay-yaml'
 
-  steps:
-    
-    - task: TerraformTask@5
-      displayName: terraform init
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
+      - job: terrafomplan
+        displayName: terrafrom fmt, validate and plan
 
-    - task: TerraformTask@5
-      displayName: terraform validate
-      inputs:
-        provider: 'azurerm'
-        command: 'validate'
+        steps:
+          - task: TerraformTask@5
+            displayName: terrafrom validate
+            inputs:
+             provider: 'azurerm'
+             command: 'validate'
 
-    - task: TerraformTask@5
-      displayName: terraform fmt
-      inputs:
-        provider: 'azurerm'
-        command: 'fmt'
+          - task: TerraformTask@5
+            displayName: terraform plan
+            inputs:
+               provider: 'azurerm'
+               command: 'plan'
 
-
-        
+      
