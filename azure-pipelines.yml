@@ -24,7 +24,11 @@ stages:
         displayName: terrafrom fmt, validate and plan
 
         steps:
-     
+          - task: TerraformTask@5
+            displayName: terrafrom validate
+            inputs:
+             provider: 'azurerm'
+             command: 'validate'
 
           - task: TerraformTask@5
             displayName: terraform plan
