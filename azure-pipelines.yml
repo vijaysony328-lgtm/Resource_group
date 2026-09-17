@@ -34,4 +34,21 @@ stages:
                command: 'plan'
                environmentServiceNameAzureRM: 'ado_connection'
 
+          - task: TerraformTask@5
+            displayName: terraform apply
+            inputs:
+                   provider: 'azurerm'
+                   command: 'apply'
+                   commandOptions: '-auto-approve'
+                   environmentServiceNameAzureRM: 'ado_connection'
+
+          - task: TerraformTask@5
+            displayName: terrafrom show
+            inputs:
+                    provider: 'azurerm'
+                    command: 'show'
+                    outputTo: 'console'
+                    outputFormat: 'default'
+                    environmentServiceNameAzureRM: 'ado_connection'
+
       
